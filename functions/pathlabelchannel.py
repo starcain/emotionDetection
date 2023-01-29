@@ -17,8 +17,8 @@ channel = ['FP1', 'FPZ', 'FP2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1', 'FZ', 'F2'
 def pathlabelchannel():
     return path, label, channel
 
-def show():
-    print(path)
-    print(label)
-    print(channel)
+# def show():
+#     print(path)
+#     print(label)
+#     print(channel)
 

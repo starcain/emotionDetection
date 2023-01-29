@@ -1,5 +1,6 @@
 from scipy.io import loadmat
 import numpy as np
+from os import listdir
 
 def sampling(matfile, hlabel):
     # takes a matfile, label list as input and return samples,hotkeys
@@ -75,3 +76,43 @@ def sampling61(matfile, label, channel):
 
     for key in keys[3:]:
         print(key)
+
+def dirsample(path, label):
+    # here we re loading all the 15 files of one directory
+    # if we give the path of 1 then it will load the 15 files of it
+    filename = listdir(path)
+    sampleno, sample, hotkey = 0, np.zeros(0), np.zeros(0)
+
+    for i in filename:
+        total, rsample, rhotkey = sampling(path + i, label)
+        # print(total)
+        sampleno += total
+        # print(np.shape(sample1))
+
+        if not np.size(sample):
+            # print("main()-IF")
+            sample = rsample
+            hotkey = rhotkey
+        else:
+            # print("main()-ELSE")
+            sample = np.concatenate((sample, rsample), axis=0)
+            hotkey = np.concatenate((hotkey, rhotkey), axis=0)
+            # break
+        print(i, sampleno, total)
+
+    return sample, hotkey
+
+
+def sampleShuffle(sno, sample, hotkey):
+    # print("Shuffling started...")
+    rarr = np.array(range(sno))
+    np.random.shuffle(rarr)
+    finalsample, finalhotkey = np.zeros((sno, 62, 1000)), np.zeros((sno, 4))
+
+    for i in range(sno):
+        pos = rarr[i]
+        finalsample[i] = sample[pos]
+        finalhotkey[i] = hotkey[pos]
+
+    # print("Shuffling DONE...")
+    return finalsample, finalhotkey
