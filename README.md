@@ -1,5 +1,5 @@
 # emotionDetection
 
-BRANCH: main
+BRANCH: channelOptimization
 VERSION: 0.1.0
 
