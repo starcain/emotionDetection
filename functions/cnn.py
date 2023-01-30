@@ -3,11 +3,12 @@ from keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from keras.models import Sequential
 import numpy as np 
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 #function._ imports..
-from functions.sampling import sampleShuffle
+# from functions.sampling import sampleShuffle
 
-def cnn2d(ncols, nrows, nplayers):
+def cnn2d(ncols : int, nrows : int, nplayers : int):
     model = Sequential()
     model.add(
         Conv2D(filters=16, kernel_size=(3, 3), activation='relu', padding='same', input_shape=(ncols, nrows, nplayers)))
@@ -28,24 +29,17 @@ def cnn2d(ncols, nrows, nplayers):
     return model
 
 
-def runcnn2d(sample, hotkey, ratio, batch, epoch):
-    sno = np.shape(sample)[0]
-    finalsample, finalhotkey = sampleShuffle(sno, sample, hotkey)
+def runcnn2d61(sample : np.ndarray, hotkey : np.ndarray, ratio : float, batch : int, epoch : int, channel : list):
 
-    traintest = int(sno * ratio)
-    x1 = finalsample[0:traintest, :, :]
-    y1 = finalhotkey[0:traintest, :]
-    x2 = finalsample[traintest:, :, :]
-    y2 = finalhotkey[traintest:, :]
+    X_train, X_test, y_train, y_test = train_test_split(sample, hotkey, train_size=ratio)
 
-    model = cnn2d(62, 1000, 1)
+    model = cnn2d(channel, 1000, 1)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    results = model.fit(x1, y1, batch_size=batch, epochs=epoch, validation_data=(x2, y2))
+    results = model.fit(X_train, y_train, batch_size=batch, epochs=epoch, shuffle=True, validation_data=(X_test, y_test))
 
     modelplot_acc(results.history)
     # modelplot_loss(results.history)
     return results
-
 
 def modelplot_acc(results):
     plt.plot(results['accuracy'], label='accuracy')

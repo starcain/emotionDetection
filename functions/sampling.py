@@ -1,8 +1,9 @@
 from scipy.io import loadmat
 import numpy as np
 from os import listdir
+from pandas import DataFrame
 
-def sampling(matfile, hlabel):
+def sampling(matfile : str, hlabel : list):
     # takes a matfile, label list as input and return samples,hotkeys
 
     # loading the matfile dictionary data in dict
@@ -69,15 +70,50 @@ def sampling(matfile, hlabel):
     return np.shape(finalsample)[0], finalsample, finalhotkey
 
 
-def sampling61(matfile, label, channel):
+def sampling61(matfilePath : str, label : list, channel : list):
 
-    matDict = loadmat(matfile)
+    matDict = loadmat(matfilePath)
     keys = list(matDict.keys())
 
-    for key in keys[3:]:
-        print(key)
+    # for key in keys[3:]:
+        # print(key)
+    finalsample = []
+    finalhotkey = []
+    
+    for vid in range(3,27):
+        eegData = matDict[keys[vid]]
 
-def dirsample(path, label):
+        df = DataFrame(eegData, index = channel)
+        df = df.drop(index = channel[0])
+
+        eegData = df.to_numpy()
+
+        sampleNo = np.shape(eegData)[1] // 1000
+
+        sample = np.zeros((sampleNo, 61, 1000))
+
+        for i in range(sampleNo):
+            for c in range(61):
+                sample[i, c, :] = eegData[c, i * 1000:(i + 1) * 1000]
+
+        hotkey = np.zeros((sampleNo, 4))
+        hotkey[:, label[vid]] = 1
+
+        if vid == 3:  # for first video case (no concatenation required)
+            # print("fun-IF")
+            finalsample = sample
+            finalhotkey = hotkey
+        else:  # for remaining cases concatenating to final array
+            # print("fun-ELSE")
+            finalsample = np.concatenate((finalsample, sample), axis=0)
+            finalhotkey = np.concatenate((finalhotkey, hotkey), axis=0)
+        
+        # break
+
+    return finalsample, finalhotkey
+ 
+
+def dirsample(path : list, label : list):
     # here we re loading all the 15 files of one directory
     # if we give the path of 1 then it will load the 15 files of it
     filename = listdir(path)
@@ -102,17 +138,21 @@ def dirsample(path, label):
 
     return sample, hotkey
 
+def dirsample61(path : list, label : list, channel : list):
+    filenames = listdir(path)
+    sample, hotkey = np.zeros(0), np.zeros(0)
 
-def sampleShuffle(sno, sample, hotkey):
-    # print("Shuffling started...")
-    rarr = np.array(range(sno))
-    np.random.shuffle(rarr)
-    finalsample, finalhotkey = np.zeros((sno, 62, 1000)), np.zeros((sno, 4))
+    for i in filenames:
+        print(i)
+        sample61, hotkey61 = sampling61(path + i, label, channel)
 
-    for i in range(sno):
-        pos = rarr[i]
-        finalsample[i] = sample[pos]
-        finalhotkey[i] = hotkey[pos]
-
-    # print("Shuffling DONE...")
-    return finalsample, finalhotkey
+        if not np.size(sample):
+            # print("main()-IF")
+            sample = sample61
+            hotkey = hotkey61
+        else:
+            # print("main()-ELSE")
+            sample = np.concatenate((sample, sample61), axis=0)
+            hotkey = np.concatenate((hotkey, hotkey61), axis=0)
+            # break
+    return sample, hotkey
