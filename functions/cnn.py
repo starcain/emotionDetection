@@ -1,6 +1,7 @@
 #package imports..
 from keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from keras.models import Sequential
+from keras.callbacks import EarlyStopping
 import numpy as np 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -33,11 +34,15 @@ def runcnn2d61(sample : np.ndarray, hotkey : np.ndarray, ratio : float = 0.75, b
 
     model = cnn2d(channel, 1000, 1)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    results = model.fit(X_train, y_train, batch_size=batch, epochs=epoch, shuffle=True, validation_data=(X_test, y_test))
+
+    callback = EarlyStopping(monitor='val_loss', patience=5, verbose=1)
+
+    results = model.fit(X_train, y_train, batch_size=batch, epochs=epoch, shuffle=True, validation_data=(X_test, y_test), callbacks=callback)
 
     modelplot_acc(results.history)
-    # modelplot_loss(results.history)
+    modelplot_loss(results.history)
     return results
+
 
 def modelplot_acc(results):
     plt.plot(results['accuracy'], label='accuracy')
