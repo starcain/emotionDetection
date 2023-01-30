@@ -22,3 +22,13 @@ def pathlabelchannel():
 #     print(label)
 #     print(channel)
 
+def channelRemove(removeList : list):
+    channelRemoveList = []
+    for i in removeList:
+        channelRemoveList.append(channel[i])
+    
+    # print(channelRemoveList)
+    return channelRemoveList
+
+def modelTestPLC(index : int):
+    return path[index], label[index], channel

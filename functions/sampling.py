@@ -1,10 +1,14 @@
+#packages import..
 from scipy.io import loadmat
 import numpy as np
 from os import listdir
 from pandas import DataFrame
 
+#functions import..
+from functions.pathlabelchannel import channelRemove
 
-def sampling61(matfilePath : str, label : list, channel : list, dropIndex : int):
+
+def sampling61(matfilePath : str, label : list, channel : list, dropIndex : list):
 
     matDict = loadmat(matfilePath)
     keys = list(matDict.keys())
@@ -17,17 +21,20 @@ def sampling61(matfilePath : str, label : list, channel : list, dropIndex : int)
     for vid in range(3,27):
         eegData = matDict[keys[vid]]
 
+        dropChannels = channelRemove(dropIndex)
+
         df = DataFrame(eegData, index = channel)
-        df = df.drop(index = channel[dropIndex])
+        channelNo = 62 - len(dropIndex)
+        df = df.drop(index = dropChannels)
 
         eegData = df.to_numpy()
 
         sampleNo = np.shape(eegData)[1] // 1000
 
-        sample = np.zeros((sampleNo, 61, 1000))
+        sample = np.zeros((sampleNo, channelNo, 1000))
 
         for i in range(sampleNo):
-            for c in range(61):
+            for c in range(channelNo):
                 sample[i, c, :] = eegData[c, i * 1000:(i + 1) * 1000]
 
         hotkey = np.zeros((sampleNo, 4))
@@ -48,7 +55,7 @@ def sampling61(matfilePath : str, label : list, channel : list, dropIndex : int)
  
 
 
-def dirsample61(path : list, label : list, channel : list, dropIndex : int):
+def dirsample61(path : list, label : list, channel : list, dropIndex : list):
     filenames = listdir(path)
     sample, hotkey = np.zeros(0), np.zeros(0)
 

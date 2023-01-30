@@ -1,15 +1,12 @@
-#functions imports..
-from functions.sampling import dirsample61
-from functions.pathlabelchannel import pathlabelchannel
-from functions.cnn import runcnn2d61
+#function imports..
+from functions import modelTest
 
-#package imports..
-import numpy as np
+#parameters declaration..
+index = 0
+dropIndex = [3]
+ratio = 0.75
+batch = 32
+epoch = 80
 
-path, label, channel = pathlabelchannel()
-
-
-sample, hotkey = dirsample61(path[0], label[0], channel)
-
-model = runcnn2d61(sample, hotkey, 0.8, batch=32, epoch=150, channel=61)
-
+#function call..
+model = modelTest(index, dropIndex, ratio, batch, epoch)
