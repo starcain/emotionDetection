@@ -5,8 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
-#function._ imports..
-# from functions.sampling import sampleShuffle
 
 def cnn2d(ncols : int, nrows : int, nplayers : int):
     model = Sequential()
@@ -29,7 +27,7 @@ def cnn2d(ncols : int, nrows : int, nplayers : int):
     return model
 
 
-def runcnn2d61(sample : np.ndarray, hotkey : np.ndarray, ratio : float, batch : int, epoch : int, channel : list):
+def runcnn2d61(sample : np.ndarray, hotkey : np.ndarray, ratio : float = 0.75, batch : int = 32, epoch : int = 80, channel : int = 61):
 
     X_train, X_test, y_train, y_test = train_test_split(sample, hotkey, train_size=ratio)
 
