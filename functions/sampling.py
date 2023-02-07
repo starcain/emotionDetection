@@ -3,6 +3,7 @@ from scipy.io import loadmat
 import numpy as np
 from os import listdir
 from pandas import DataFrame
+from random import shuffle
 
 #functions import..
 from functions.pathlabelchannel import channelRemove
@@ -57,6 +58,9 @@ def sampling61(matfilePath : str, label : list, channel : list, dropIndex : list
 
 def dirsample61(path : list, label : list, channel : list, dropIndex : list):
     filenames = listdir(path)
+    shuffle(filenames)
+    print(filenames)
+    
     sample, hotkey = np.zeros(0), np.zeros(0)
 
     for i in filenames:

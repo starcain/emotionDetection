@@ -9,4 +9,8 @@ batch = 32
 epoch = 80
 
 #function call..
-model = modelTest(index, dropIndex, ratio, batch, epoch)
+for i in range(62):
+    print("REMOVED INDEX: ",i)
+    print("REMOVED CHANNEL: ", channel[i])
+    dropIndex = [i]
+    model = modelTest(index, dropIndex, ratio, batch, epoch)
