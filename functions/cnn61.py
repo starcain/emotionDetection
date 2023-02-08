@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
 #function imports..
-from functions.modelplot import modelplot_acc, modelplot_loss
+from functions.model import plotAll
 
 def cnn2d1x(ncols : int, nrows : int, nplayers : int):
     model = Sequential()
@@ -41,6 +41,5 @@ def runcnn2d61(sample : np.ndarray, hotkey : np.ndarray, channel : int = 61, rat
 
     results = model.fit(X_train, y_train, batch_size=batch, epochs=epoch, shuffle=True, validation_data=(X_test, y_test), callbacks=callback)
 
-    modelplot_acc(results.history)
-    modelplot_loss(results.history)
+    plotAll(results.history)
     return results

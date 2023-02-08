@@ -1,5 +1,6 @@
 #package imports..
 import matplotlib.pyplot as plt
+from keras.models  import load_model
 
 def modelplot_acc(results):
     plt.plot(results['accuracy'], label='accuracy')
@@ -25,3 +26,14 @@ def modelplot_loss(results):
     plt.grid()
     plt.legend()
     plt.show()
+
+def plotAll(results):
+    modelplot_acc(results)
+    modelplot_loss(results)
+
+def savemodel(model, path):
+    model.save(path)
+
+def loadModel(filepath):
+    model = load_model(filepath)
+    return model
