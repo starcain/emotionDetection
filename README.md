@@ -1,5 +1,4 @@
-# emotionDetection
-
-BRANCH: main
-VERSION: 0.1.0
+# **emotionDetection**
+    BRANCH: main
+    VERSION: 0.1.0
 
