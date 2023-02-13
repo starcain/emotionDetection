@@ -14,16 +14,29 @@ def cnn2d1x(ncols : int, nrows : int, nplayers : int):
     model.add(
         Conv2D(filters=16, kernel_size=(3, 3), activation='relu', padding='same', input_shape=(ncols, nrows, nplayers)))
     model.add(MaxPooling2D(pool_size=(1, 5)))
+    model.add(BatchNormalization())
+
     model.add(Conv2D(filters=32, kernel_size=(3, 3), activation='relu', padding='same'))
     model.add(MaxPooling2D(pool_size=(1, 3)))
+    model.add(BatchNormalization())
+
     model.add(Conv2D(filters=48, kernel_size=(3, 3), activation='relu', padding='same'))
     model.add(MaxPooling2D(pool_size=(1, 3)))
+    model.add(BatchNormalization())
+
     model.add(Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding='same'))
     model.add(MaxPooling2D(pool_size=(1, 3)))
+    model.add(BatchNormalization())
+
     model.add(Conv2D(filters=80, kernel_size=(3, 3), activation='relu', padding='same'))
     model.add(MaxPooling2D(pool_size=(1, 3)))
+    model.add(BatchNormalization())
+
     model.add(Flatten())
-    model.add(Dense(64, activation='relu'))
+    
+    model.add(Dense(64, activation='relu', kernel_regularizer=l2(0.001)))
+    model.add(Dropout(0.2))
+
     model.add(Dense(4, activation='softmax'))
 
     print(model.summary())
