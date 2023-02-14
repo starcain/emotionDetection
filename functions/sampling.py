@@ -66,7 +66,7 @@ def generate_batched_samples_from_directory(path: str, label: list, channel: lis
             finalsample = sample
             finalhotkey = hotkey
         else:
-            sample = np.concatenate((finalsample, sample), axis=0)
-            hotkey = np.concatenate((finalhotkey, hotkey), axis=0)
+            finalsample = np.concatenate((finalsample, sample), axis=0)
+            finalhotkey = np.concatenate((finalhotkey, hotkey), axis=0)
             
     return finalsample, finalhotkey
