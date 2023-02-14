@@ -1,39 +1,38 @@
-#package imports..
 import matplotlib.pyplot as plt
-from keras.models  import load_model
+import tensorflow as tf
+from tensorflow.keras.models import save_model, load_model
 
-def modelplot_acc(results):
+def plot_accuracy(results):
     plt.plot(results['accuracy'], label='accuracy')
-    plt.plot(results['val_accuracy'], label='val_acc')
+    plt.plot(results['val_accuracy'], label='val_accuracy')
 
-    plt.title('model_acccuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
+    plt.title('Model Accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
 
     plt.grid()
     plt.legend()
     plt.show()
 
-
-def modelplot_loss(results):
+def plot_loss(results):
     plt.plot(results['loss'], label='loss')
     plt.plot(results['val_loss'], label='val_loss')
 
-    plt.title('model_loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
+    plt.title('Model Loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
 
     plt.grid()
     plt.legend()
     plt.show()
 
-def plotAll(results):
-    modelplot_acc(results)
-    modelplot_loss(results)
+def plot_all(results):
+    plot_accuracy(results)
+    plot_loss(results)
 
-def savemodel(model, path):
-    model.save(path)
+def save_model(model, path):
+    save_model(model, path)
 
-def loadModel(filepath):
+def load_model(filepath):
     model = load_model(filepath)
     return model

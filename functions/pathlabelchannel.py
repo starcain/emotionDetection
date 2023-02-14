@@ -14,21 +14,17 @@ channel = ['FP1', 'FPZ', 'FP2', 'AF3', 'AF4', 'F7', 'F5', 'F3', 'F1', 'FZ', 'F2'
         'CP4', 'CP6', 'TP8', 'P7', 'P5', 'P3', 'P1', 'PZ', 'P2', 'P4', 'P6', 'P8', 'PO7',
         'PO5', 'PO3', 'POZ', 'PO4', 'PO6', 'PO8', 'CB1', 'O1', 'OZ', 'O2', 'CB2']
 
-def pathlabelchannel():
+def get_path_label_channel():
+    # Returns the path, label, and channel
     return path, label, channel
 
-# def show():
-#     print(path)
-#     print(label)
-#     print(channel)
+def remove_channels(remove_list: list):
+    # Returns a list of channels to be removed
+    channels_to_remove = []
+    for i in remove_list:
+        channels_to_remove.append(channel[i])
+    return channels_to_remove
 
-def channelRemove(removeList : list):
-    channelRemoveList = []
-    for i in removeList:
-        channelRemoveList.append(channel[i])
-    
-    # print(channelRemoveList)
-    return channelRemoveList
-
-def modelTestPLC(index : int):
+def get_path_label_channel_by_index(index: int):
+    # Returns the path, label, and channel by the given index
     return path[index], label[index], channel
