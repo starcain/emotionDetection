@@ -54,13 +54,15 @@ def generate_eeg_samples(mat_file_path: str, label: list, channel: list, drop_in
 def generate_batched_samples_from_directory(path: str, label: list, channel: list, drop_index: list = []) -> tuple:
     filenames = os.listdir(path)
     random.shuffle(filenames)
+    print(filenames)
     
     finalsample, finalhotkey = np.zeros(0), np.zeros(0)
 
     for i in filenames:
+        print(i)
         sample, hotkey = generate_eeg_samples(os.path.join(path, i), label, channel, drop_index)
 
-        if not np.size(sample):
+        if not np.size(finalsample):
             finalsample = sample
             finalhotkey = hotkey
         else:
