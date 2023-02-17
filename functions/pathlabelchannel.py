@@ -1,7 +1,6 @@
-path = ["D:/project/eeg_raw_data/eeg_raw_data/1/",
-        "D:/project/eeg_raw_data/eeg_raw_data/2/",
-        "D:/project/eeg_raw_data/eeg_raw_data/3/"
-        ]
+path = ["C:/Users/roysh/Project/eeg_raw_data/1/",
+        "C:/Users/roysh/Project/eeg_raw_data/2/",
+        "C:/Users/roysh/Project/eeg_raw_data/3/"]
 
 label = [[-1, -1, -1, 1, 2, 3, 0, 2, 0, 0, 1, 0, 1, 2, 1, 1, 1, 2, 3, 2, 2, 3, 3, 0, 3, 0, 3],
         [-1, -1, -1, 2, 1, 3, 0, 0, 2, 0, 2, 3, 3, 2, 3, 2, 0, 1, 1, 2, 1, 0, 3, 0, 1, 3, 1],

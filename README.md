@@ -11,4 +11,4 @@
     Channel Removed: PO5, Index: 51
 ## 0.1.2   
     CNN Model with 60 channels
-    Added: BatchNormalization(), Dropout(0.2)
+    Added: Dropout(0.2)
