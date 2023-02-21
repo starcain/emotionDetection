@@ -5,6 +5,7 @@ from random import shuffle
 from pandas import DataFrame
 from scipy.io import loadmat
 import numpy as np
+import gc
 
 if __name__ == "__main__":
     from pathlabelchannel import remove_channels
@@ -60,6 +61,9 @@ def generate_eeg_samples(mat_file_path: str, label: list, channel: list, drop_in
             final_sample = np.concatenate((final_sample, sample), axis=0)
             final_hotkey = np.concatenate((final_hotkey, hotkey), axis=0)
         
+        # Trigger garbage collection to free up memory.
+        gc.collect()
+        
     # Return the final samples and hotkeys as a tuple.
     return final_sample, final_hotkey
 
@@ -88,6 +92,9 @@ def generate_batched_samples_from_directory(path: str, label: list, channel: lis
         else:
             finalsample = np.concatenate((finalsample, sample), axis=0)
             finalhotkey = np.concatenate((finalhotkey, hotkey), axis=0)
+        
+        # Trigger garbage collection to free up memory.
+        gc.collect()
     
     # Return the final samples and their corresponding hot keys as a tuple.
     return finalsample, finalhotkey

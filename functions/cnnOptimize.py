@@ -38,7 +38,7 @@ def create_cnn(ncols: int, nrows: int, nplayers: int) -> tf.keras.Model:
 def train_cnn(sample: np.ndarray, hotkey: np.ndarray, channel: int = 60, ratio: float = 0.75, batch_size: int = 32, epochs: int = 80, restore : bool = False):
     X_train, X_test, y_train, y_test = train_test_split(sample, hotkey, train_size=ratio)
 
-    model = create_cnn_reduce(channel, 1000, 1)
+    model = create_cnn(channel, 1000, 1)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
     callback = EarlyStopping(monitor='val_loss', patience=10, verbose=1, restore_best_weights=restore)

@@ -1,12 +1,13 @@
 import numpy as np
+import gc
 
 if __name__ == "__main__":
     from sampling import generate_batched_samples_from_directory
-    from cnnReduce import train_cnn_reduce
+    from cnnOptimize import train_cnn
     from pathlabelchannel import get_path_label_channel_by_index
 else:
     from functions.sampling import generate_batched_samples_from_directory
-    from functions.cnnReduce import train_cnn_reduce
+    from functions.cnnOptimize import train_cnn
     from functions.pathlabelchannel import get_path_label_channel_by_index
 
 
@@ -27,4 +28,7 @@ def cnnmodel(index : int = 0):
     sample, hotkey = generate_batched_samples_from_directory(path, label, channel, dropIndex)
     print(np.shape(sample), np.shape(hotkey))
 
-    model = train_cnn_reduce(sample, hotkey)
+    model = train_cnn(sample, hotkey)
+    
+    # Trigger garbage collection to free up memory.
+    gc.collect()
