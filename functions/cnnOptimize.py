@@ -8,10 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.regularizers import L2
 
-if __name__ == "__main__":
-    from model import plot_all
-else:
-    from functions.model import plot_all
+from functions.model import plot_all
 
 def create_cnn(ncols: int, nrows: int, nplayers: int) -> tf.keras.Model:
     model = Sequential([

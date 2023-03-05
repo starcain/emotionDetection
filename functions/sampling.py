@@ -7,10 +7,7 @@ from scipy.io import loadmat
 import numpy as np
 import gc
 
-if __name__ == "__main__":
-    from pathlabelchannel import remove_channels
-else:
-    from functions.pathlabelchannel import remove_channels
+from functions.pathlabelchannel import remove_channels
 
 
 # This function generates EEG samples and their corresponding hotkeys from a .mat file.
@@ -99,3 +96,17 @@ def generate_batched_samples_from_directory(path: str, label: list, channel: lis
     # Return the final samples and their corresponding hot keys as a tuple.
     return finalsample, finalhotkey
 
+def generate_all_batched_samples(path: str, label: list, channel: list, index: list, drop_index: list = []) -> tuple:
+    finalsample, finalhotkey = np.zeros(0), np.zeros(0)
+
+    for i in index:
+        sample, hotkey = generate_batched_samples_from_directory(path[i], label[i], channel, drop_index)
+
+        if not np.size(finalsample):
+            finalsample = sample
+            finalhotkey = hotkey
+        else:
+            finalsample = np.concatenate((finalsample, sample), axis=0)
+            finalhotkey = np.concatenate((finalhotkey, hotkey), axis=0)
+
+    return finalsample, finalhotkey
