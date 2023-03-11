@@ -108,5 +108,6 @@ def generate_all_batched_samples(path: str, label: list, channel: list, index: l
         else:
             finalsample = np.concatenate((finalsample, sample), axis=0)
             finalhotkey = np.concatenate((finalhotkey, hotkey), axis=0)
+        print(np.shape(finalsample))
 
     return finalsample, finalhotkey
