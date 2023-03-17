@@ -3,6 +3,16 @@
     VERSION: 0.7.1
 # VERSION HISTORY:
 
+
+## 0.7.2
+    CNN Model with 22 channels
+    functions
+        model10 -> model32
+        model10_all -> model32_all
+## 0.8.1
+    Output files updated
+## 0.8.0
+    CNN Model with 8 channels
 ## 0.7.1
     README
         Version History Updated
