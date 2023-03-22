@@ -16,17 +16,17 @@ Channels = [
     ]
 
 drop = [
-    7, 8, 9, 11, 12, 14, 15, 17, 18, 19, 21, 24, 26, 27, 28, 29, 
-    30, 31, 33, 34, 35, 36, 37, 38, 39, 40, 44, 46, 47, 48, 49, 
-    51, 53, 55, 56, 57, 58, 59, 60
+    5, 6, 7, 8, 9, 11, 12, 14, 15, 16, 17, 18, 19, 21, 24, 25, 26, 27, 28, 29, 
+    30, 31, 33, 34, 35, 36, 37, 38, 39, 40, 41, 44, 45, 46, 47, 48, 49, 
+    51, 53, 54, 55, 56, 57, 58, 59, 60, 61
     ]
 
 remainingChannels = [ 
-    0, 1, 2, 3, 4, 5, 6, 10, 13, 16, 20, 22, 
-    23, 25, 32, 41, 42, 43, 45, 50, 52, 54, 61
+    0, 1, 2, 3, 4, 10, 13, 20, 22, 
+    23, 32, 42, 43, 50, 52,
     ]
 
-def model22(index : int = 0):
+def model14(index : int = 0):
     dropIndex = drop.copy()
     dropIndex.append(Channels[index])
     dropIndex = list(set(dropIndex))
@@ -42,7 +42,7 @@ def model22(index : int = 0):
     # Trigger garbage collection to free up memory.
     gc.collect()
 
-def model22_all(index : int = 0, pathindex : list = [0, 1, 2]):
+def model14_all(index : int = 0, pathindex : list = [0, 1, 2]):
     dropIndex = drop.copy()
     dropIndex.append(Channels[index])
     dropIndex = list(set(dropIndex))
